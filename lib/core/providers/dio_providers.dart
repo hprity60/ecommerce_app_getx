@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:ecommerce_app/strings/app_strings.dart';
+import '../strings/app_strings.dart';
 
 class DioProvider {
   final Dio _dio;

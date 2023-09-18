@@ -2,8 +2,8 @@
 import 'package:dio/dio.dart';
 
 import '../model/product_response_model.dart';
-import '../providers/dio_providers.dart';
-import '../strings/app_strings.dart';
+import '../../core/providers/dio_providers.dart';
+import '../../core/strings/app_strings.dart';
 
 class GetProductRepository {
   static final DioProvider dioProvider = DioProvider();

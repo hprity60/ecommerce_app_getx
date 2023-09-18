@@ -1,4 +1,6 @@
-import 'package:ecommerce_app/pages/product_page.dart';
+import 'package:ecommerce_app/src/controller/product_controller.dart';
+
+import 'src/view/product_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,6 +21,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: ProductPage(),
+      initialBinding: BindingsBuilder(() {
+        Get.put(ProductController());
+      }),
     );
   }
 }
