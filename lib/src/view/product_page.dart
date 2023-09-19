@@ -2,6 +2,7 @@ import '../controller/product_controller.dart';
 import 'add_to_cart_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:badges/badges.dart' as badge;
 
 class ProductPage extends StatelessWidget {
   ProductPage({super.key});
@@ -14,20 +15,38 @@ class ProductPage extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          title: Text(
+          title: const Text(
             'Ecommerce STore',
             style: TextStyle(color: Colors.black),
           ),
           actions: [
-            IconButton(
-              onPressed: () {
-                Get.to(AddToCartPage());
+            badge.Badge(
+              position: badge.BadgePosition.topEnd(top: -10, end: -12),
+              showBadge: true,
+              ignorePointer: false,
+              badgeContent: const Text(
+                '4',
+                style: TextStyle(color: Colors.white),
+              ),
+              onTap: () {
+                Get.to(AddToCartPage(
+                  productList: productController.productList,
+                ));
               },
-              icon: Icon(
+              badgeAnimation: const badge.BadgeAnimation.rotation(
+                animationDuration: Duration(seconds: 1),
+                colorChangeAnimationDuration: Duration(seconds: 1),
+                loopAnimation: false,
+                curve: Curves.fastOutSlowIn,
+                colorChangeAnimationCurve: Curves.easeInCubic,
+              ),
+              child: const Icon(
                 Icons.shopping_cart,
                 color: Colors.black,
+                size: 30,
               ),
             ),
+            const SizedBox(width: 20),
           ],
         ),
         body: Padding(
@@ -129,10 +148,13 @@ class ProductPage extends StatelessWidget {
                                         fontWeight: FontWeight.w600,
                                       ),
                                     ),
-                                    Spacer(),
+                                    const Spacer(),
                                     GestureDetector(
                                       onTap: () {
-                                        Get.to(AddToCartPage());
+                                        Get.to(AddToCartPage(
+                                          productList:
+                                              productController.productList,
+                                        ));
                                       },
                                       child: Container(
                                         decoration: BoxDecoration(
@@ -140,7 +162,7 @@ class ProductPage extends StatelessWidget {
                                           borderRadius:
                                               BorderRadius.circular(12),
                                         ),
-                                        child: Icon(Icons.add),
+                                        child: const Icon(Icons.add),
                                       ),
                                     )
                                   ],
