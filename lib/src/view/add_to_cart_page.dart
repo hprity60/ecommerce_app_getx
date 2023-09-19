@@ -19,30 +19,6 @@ class AddToCartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: cartController.cartItems.isEmpty
-          ? const SizedBox()
-          : Container(
-              padding: const EdgeInsets.all(30),
-              margin: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                  color: Colors.black12.withOpacity(.1),
-                  borderRadius: BorderRadius.circular(23)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Total items (${cartController.cartItems.length})",
-                    style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.w700),
-                  ),
-                  Text(
-                    "Total Prices: ${cartController.cartItems[0].price}",
-                    style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.w700),
-                  ),
-                ],
-              ),
-            ),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -238,7 +214,8 @@ class AddToCartPage extends StatelessWidget {
                                                               228)),
                                                   child: Text(
                                                     cartController
-                                                        .cartItems.length
+                                                        .cartItems[index]
+                                                        .quantity
                                                         .toString(),
                                                     style: const TextStyle(
                                                         fontSize: 16,
@@ -275,7 +252,31 @@ class AddToCartPage extends StatelessWidget {
                             return null;
                           });
                     }),
-                  )
+                  ),
+                  cartController.cartItems.isEmpty
+                      ? const SizedBox()
+                      : Container(
+                          padding: const EdgeInsets.all(20),
+                          margin: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                              color: Colors.black12.withOpacity(.1),
+                              borderRadius: BorderRadius.circular(16)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Total items (${Product.calculateTotalQuantity(cartController.cartItems)})",
+                                style: const TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w700),
+                              ),
+                              Text(
+                                "Total Prices: ${Product.calculateTotalPrice(cartController.cartItems).toStringAsFixed(2)}",
+                                style: const TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w700),
+                              ),
+                            ],
+                          ),
+                        ),
                 ],
               ),
             ),

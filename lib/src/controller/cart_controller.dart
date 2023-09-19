@@ -65,10 +65,14 @@ class CartController extends GetxController {
   }
 
   void incrementQuantity(Product item) {
-    // Increment the quantity of the specified product
-    item.incrementQuantity();
+    try {
+      // Increment the quantity of the specified product
+      item.incrementQuantity();
 
-    update(); // Manually trigger a UI update
+      update(); // Manually trigger a UI update
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 
   void decrementQuantity(Product item) {

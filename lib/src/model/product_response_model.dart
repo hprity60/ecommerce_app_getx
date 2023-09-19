@@ -6,7 +6,8 @@ class Product {
   String category;
   String image;
   Rating rating;
-  int quantity;
+  int quantity = 0;
+  List<Product> cartItems = []; // Your list of cart items
 
   Product({
     required this.id,
@@ -16,7 +17,7 @@ class Product {
     required this.category,
     required this.image,
     required this.rating,
-    this.quantity = 1,
+    this.quantity = 0,
   });
 
   void incrementQuantity() {
@@ -27,6 +28,24 @@ class Product {
     if (quantity > 0) {
       quantity--;
     }
+  }
+
+// Calculate the total quantity of cart items
+  static int calculateTotalQuantity(List<Product> cartItems) {
+    int totalQuantity = 0;
+    for (var item in cartItems) {
+      totalQuantity += item.quantity;
+    }
+    return totalQuantity;
+  }
+
+  // Calculate the total price of cart items
+  static double calculateTotalPrice(List<Product> cartItems) {
+    double totalPrice = 0;
+    for (var item in cartItems) {
+      totalPrice += item.price * item.quantity;
+    }
+    return totalPrice;
   }
 
   factory Product.fromJson(Map<String, dynamic> json) {
