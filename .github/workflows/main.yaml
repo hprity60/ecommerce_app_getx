@@ -1,0 +1,75 @@
+name: "Build & Release"   # You can name it as you want
+
+on:
+  pull_request:
+    branches:
+      - main
+      - test
+  push:
+    branches:
+      - main
+      - test
+
+jobs:   # Telling what jobs we need to happen
+  build:      # Specify the building name and machine
+    name: Build & Release  # you can name the build whatever you want
+     # device we want our code to run on ( macos - ubuntu - windows )
+     # here we selected macos-latest to be able to get ios build
+    runs-on: windows-latest
+
+    #1 Checkout Repository
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      #2 Setup Java
+      - name: Set Up Java
+        uses: actions/setup-java@v3.12.0
+        with:
+          distribution: 'oracle'
+          java-version: '17'
+
+      #3 Setup Flutter
+      - name: Set Up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.13.4'
+          channel: 'stable'
+
+      #4 Install dependencies
+      - name: Install Dependencies
+        run: flutter pub get
+
+      #5 Run Test
+      # - name: Test flutter app
+      #   run: flutter test
+
+      #6 Build APK
+      - name: Build APK
+        run: flutter build apk --release
+
+      #7 Build AAB
+      - name: Build appBundle
+        run: flutter build appbundle
+
+      #8 get Build files to download
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Releases
+          path: |
+            build/app/outputs/flutter-apk/app-release.apk
+            build/app/outputs/bundle/release/app-release.aab
+
+      
+      #9 Create Release with those builds
+      - name: Create Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "build/app/outputs/flutter-apk/app-release.apk,build/app/outputs/bundle/release/app-release.aab,build/ios_build.tar.gz"
+          tag: v1.0.${{ github.run_number }}
+          token: ${{ secrets.TOKEN }}
+          
+
+      
+
