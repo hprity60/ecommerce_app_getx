@@ -54,6 +54,8 @@ class AddToCartPage extends StatelessWidget {
                           itemBuilder: (context, index) {
                             if (index < cartController.cartItems.length) {
                               final item = cartController.cartItems[index];
+                              final singleProductPrice =
+                                  item.price * item.quantity;
                               return Container(
                                 width: double.infinity,
                                 padding: const EdgeInsets.all(10),
@@ -122,42 +124,7 @@ class AddToCartPage extends StatelessWidget {
                                                           ),
                                                         );
                                                       }
-                                                      // cartController
-                                                      //     .removeFromCart(Product(
-                                                      //         id: cartController
-                                                      //             .cartItems[
-                                                      //                 index]
-                                                      //             .id,
-                                                      //         title:
-                                                      //             cartController
-                                                      //                 .cartItems[
-                                                      //                     index]
-                                                      //                 .title,
-                                                      //         price:
-                                                      //             cartController
-                                                      //                 .cartItems[
-                                                      //                     index]
-                                                      //                 .price,
-                                                      //         description:
-                                                      //             cartController
-                                                      //                 .cartItems[
-                                                      //                     index]
-                                                      //                 .description,
-                                                      //         category:
-                                                      //             cartController
-                                                      //                 .cartItems[
-                                                      //                     index]
-                                                      //                 .category,
-                                                      //         image:
-                                                      //             cartController
-                                                      //                 .cartItems[
-                                                      //                     index]
-                                                      //                 .image,
-                                                      //         rating:
-                                                      //             cartController
-                                                      //                 .cartItems[
-                                                      //                     index]
-                                                      //                 .rating));
+
                                                       print(
                                                           "Cart Items >> ${cartController.cartItems.length}");
                                                     },
@@ -169,7 +136,10 @@ class AddToCartPage extends StatelessWidget {
                                             Row(
                                               children: [
                                                 Text(
-                                                  "\$ ${item.price}",
+                                                  // ignore: unnecessary_null_comparison
+                                                  item.quantity == 0
+                                                      ? "\$ ${item.price}"
+                                                      : "\$ $singleProductPrice",
                                                   style: const TextStyle(
                                                       color: Colors.brown,
                                                       fontSize: 16,
