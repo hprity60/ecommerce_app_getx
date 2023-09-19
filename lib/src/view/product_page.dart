@@ -1,3 +1,6 @@
+import 'package:ecommerce_app/src/controller/cart_controller.dart';
+import 'package:ecommerce_app/src/model/product_response_model.dart';
+
 import '../controller/product_controller.dart';
 import 'add_to_cart_page.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +11,7 @@ class ProductPage extends StatelessWidget {
   ProductPage({super.key});
 
   final productController = Get.put(ProductController());
+  final cartController = Get.put(CartController());
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +28,9 @@ class ProductPage extends StatelessWidget {
               position: badge.BadgePosition.topEnd(top: -10, end: -12),
               showBadge: true,
               ignorePointer: false,
-              badgeContent: const Text(
-                '4',
-                style: TextStyle(color: Colors.white),
+              badgeContent: Text(
+                cartController.cartItems.length.toString(),
+                style: const TextStyle(color: Colors.white),
               ),
               onTap: () {
                 Get.to(AddToCartPage(
@@ -151,10 +155,23 @@ class ProductPage extends StatelessWidget {
                                     const Spacer(),
                                     GestureDetector(
                                       onTap: () {
-                                        Get.to(AddToCartPage(
-                                          productList:
-                                              productController.productList,
-                                        ));
+                                        cartController.addToCart(Product(
+                                            id: productController
+                                                .productList[index].id,
+                                            title: productController
+                                                .productList[index].title,
+                                            price: productController
+                                                .productList[index].price,
+                                            description: productController
+                                                .productList[index].description,
+                                            category: productController
+                                                .productList[index].category,
+                                            image: productController
+                                                .productList[index].image,
+                                            rating: productController
+                                                .productList[index].rating));
+                                        print(
+                                            "Cart Items >> ${cartController.cartItems.length}");
                                       },
                                       child: Container(
                                         decoration: BoxDecoration(

@@ -11,7 +11,7 @@ class ProductController extends GetxController {
   @override
   Future<void> onInit() async {
     getAllProduct();
-
+    update();
     super.onInit();
   }
 

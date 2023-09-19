@@ -6,6 +6,7 @@ class Product {
   String category;
   String image;
   Rating rating;
+  int quantity;
 
   Product({
     required this.id,
@@ -15,7 +16,18 @@ class Product {
     required this.category,
     required this.image,
     required this.rating,
+    this.quantity = 1,
   });
+
+  void incrementQuantity() {
+    quantity++;
+  }
+
+  void decrementQuantity() {
+    if (quantity > 0) {
+      quantity--;
+    }
+  }
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
