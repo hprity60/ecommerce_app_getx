@@ -14,7 +14,13 @@ User can see all available products and add desired products add to the cart and
 ## Add to Cart Page
   - **add product to cart**
   - **remove product from cart**
-    
+
+
+
+https://github.com/hprity60/ecommerce_app_getx/assets/104090144/91b802c0-9e11-482c-94ba-0c9d7d4abe32
+
+
+
 
 # Showcases:
 
