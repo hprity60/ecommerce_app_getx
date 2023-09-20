@@ -187,12 +187,12 @@ class AddToCartPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "Total items (${Product.calculateTotalQuantity(cartController.cart)})",
+                              "Total items (${cartController.totalQuantity.value})",
                               style: const TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.w700),
                             ),
                             Text(
-                              "Total Prices: ${Product.calculateTotalPrice(cartController.cart).toStringAsFixed(2)}",
+                              "Total Prices: ${cartController.totalPrice.value.toStringAsFixed(2)}",
                               style: const TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.w700),
                             ),
