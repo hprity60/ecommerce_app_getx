@@ -145,8 +145,6 @@ class ProductPage extends StatelessWidget {
                                 GestureDetector(
                                   onTap: () {
                                     cartController.addToCart(items);
-                                    print(
-                                        "Cart Items >> ${cartController.cart.length}");
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(

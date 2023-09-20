@@ -111,9 +111,7 @@ class AddToCartPage extends StatelessWidget {
                                                       onPressed: () {
                                                         cartController
                                                             .removeFromCart(
-                                                                cartController
-                                                                        .cart[
-                                                                    index]);
+                                                                item);
                                                       },
                                                       icon: const Icon(
                                                           Icons.delete))
@@ -126,7 +124,7 @@ class AddToCartPage extends StatelessWidget {
                                                     // ignore: unnecessary_null_comparison
                                                     item.quantity == 0
                                                         ? "\$ ${item.price}"
-                                                        : "\$ $singleProductPrice",
+                                                        : "\$ ${singleProductPrice.toStringAsFixed(2)}",
                                                     style: const TextStyle(
                                                         color: Colors.brown,
                                                         fontSize: 16,
@@ -136,22 +134,8 @@ class AddToCartPage extends StatelessWidget {
                                                   const SizedBox(width: 48),
                                                   IconButton(
                                                       onPressed: () {
-                                                        if (cartController
-                                                            .cart.isNotEmpty) {
-                                                          cartController
-                                                              .incrementQuantity(
-                                                                  cartController
-                                                                          .cart[
-                                                                      index]);
-                                                          print(
-                                                              "Cart Items >> ${cartController.cart.length}");
-                                                        } else {
-                                                          Get.showSnackbar(
-                                                            const GetSnackBar(
-                                                              title: "No Item",
-                                                            ),
-                                                          );
-                                                        }
+                                                        cartController
+                                                            .increment(item);
                                                       },
                                                       icon: const Icon(
                                                           Icons.add)),
@@ -166,9 +150,7 @@ class AddToCartPage extends StatelessWidget {
                                                             .fromARGB(255, 219,
                                                             227, 228)),
                                                     child: Text(
-                                                      cartController
-                                                          .cart[index].quantity
-                                                          .toString(),
+                                                      item.quantity.toString(),
                                                       style: const TextStyle(
                                                           fontSize: 16,
                                                           fontWeight:
@@ -177,16 +159,8 @@ class AddToCartPage extends StatelessWidget {
                                                   ),
                                                   IconButton(
                                                       onPressed: () {
-                                                        if (cartController
-                                                            .cart.isNotEmpty) {
-                                                          cartController
-                                                              .decrementQuantity(
-                                                                  cartController
-                                                                          .cart[
-                                                                      index]);
-                                                          print(
-                                                              "Decrement item >> ${cartController.cart.length}");
-                                                        }
+                                                        cartController
+                                                            .decrement(item);
                                                       },
                                                       icon: const Icon(
                                                           Icons.remove))

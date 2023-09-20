@@ -20,16 +20,6 @@ class Product {
     this.quantity = 0,
   });
 
-  void incrementQuantity() {
-    quantity++;
-  }
-
-  void decrementQuantity() {
-    if (quantity > 0) {
-      quantity--;
-    }
-  }
-
 // Calculate the total quantity of cart items
   static int calculateTotalQuantity(List<Product> cartItems) {
     int totalQuantity = 0;
