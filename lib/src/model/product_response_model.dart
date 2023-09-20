@@ -6,7 +6,7 @@ class Product {
   String category;
   String image;
   Rating rating;
-  int quantity = 0;
+  int quantity;
   List<Product> cartItems = []; // Your list of cart items
 
   Product({

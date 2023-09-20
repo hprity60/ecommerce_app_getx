@@ -1,5 +1,4 @@
 import 'package:ecommerce_app/src/controller/cart_controller.dart';
-import 'package:ecommerce_app/src/model/product_response_model.dart';
 
 import '../controller/product_controller.dart';
 import 'add_to_cart_page.dart';
@@ -24,32 +23,29 @@ class ProductPage extends StatelessWidget {
             style: TextStyle(color: Colors.black),
           ),
           actions: [
-            badge.Badge(
-              position: badge.BadgePosition.topEnd(top: -10, end: -12),
-              showBadge: true,
-              ignorePointer: false,
-              badgeContent: Text(
-                cartController.cartItems.length.toString(),
-                style: const TextStyle(color: Colors.white),
-              ),
-              onTap: () {
-                Get.to(AddToCartPage(
-                  productList: productController.products,
-                ));
-              },
-              badgeAnimation: const badge.BadgeAnimation.rotation(
-                animationDuration: Duration(seconds: 1),
-                colorChangeAnimationDuration: Duration(seconds: 1),
-                loopAnimation: false,
-                curve: Curves.fastOutSlowIn,
-                colorChangeAnimationCurve: Curves.easeInCubic,
-              ),
-              child: const Icon(
-                Icons.shopping_cart,
-                color: Colors.black,
-                size: 30,
-              ),
-            ),
+            Obx(() {
+              return productController.isLoading.value
+                  ? const Center(child: CircularProgressIndicator())
+                  : badge.Badge(
+                      position: badge.BadgePosition.topEnd(top: -10, end: -12),
+                      showBadge: true,
+                      ignorePointer: false,
+                      badgeContent: Text(
+                        cartController.cart.length.toString(),
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                      onTap: () {
+                        Get.to(AddToCartPage(
+                          productList: productController.products,
+                        ));
+                      },
+                      child: const Icon(
+                        Icons.shopping_cart,
+                        color: Colors.black,
+                        size: 30,
+                      ),
+                    );
+            }),
             const SizedBox(width: 20),
           ],
         ),
@@ -66,6 +62,7 @@ class ProductPage extends StatelessWidget {
                       mainAxisSpacing: 10),
                   itemCount: productController.products.length,
                   itemBuilder: (BuildContext context, int index) {
+                    final items = productController.products[index];
                     return Container(
                         width: MediaQuery.of(context).size.width / 2,
                         padding: const EdgeInsets.symmetric(
@@ -92,7 +89,7 @@ class ProductPage extends StatelessWidget {
                             ),
                             const SizedBox(height: 10),
                             Text(
-                              productController.products[index].title,
+                              items.title,
                               maxLines: 2,
                               style: const TextStyle(
                                 fontWeight: FontWeight.w600,
@@ -104,9 +101,7 @@ class ProductPage extends StatelessWidget {
                                 Row(
                                   children: List.generate(5, (index) {
                                     // Calculate whether to display a full star, half star, or empty star based on the rating
-                                    double value = productController
-                                            .products[index].rating.rate -
-                                        index;
+                                    double value = items.rating.rate - index;
                                     IconData starIcon;
                                     Color starColor;
 
@@ -130,8 +125,7 @@ class ProductPage extends StatelessWidget {
                                 ),
                                 const SizedBox(width: 10),
                                 Text(
-                                  productController.products[index].rating.rate
-                                      .toString(),
+                                  items.rating.rate.toString(),
                                   style: const TextStyle(
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -142,7 +136,7 @@ class ProductPage extends StatelessWidget {
                             Row(
                               children: [
                                 Text(
-                                  "\$ ${productController.products[index].price}",
+                                  "\$ ${items.price}",
                                   style: const TextStyle(
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -150,23 +144,9 @@ class ProductPage extends StatelessWidget {
                                 const Spacer(),
                                 GestureDetector(
                                   onTap: () {
-                                    cartController.addToCart(Product(
-                                        id: productController
-                                            .products[index].id,
-                                        title: productController
-                                            .products[index].title,
-                                        price: productController
-                                            .products[index].price,
-                                        description: productController
-                                            .products[index].description,
-                                        category: productController
-                                            .products[index].category,
-                                        image: productController
-                                            .products[index].image,
-                                        rating: productController
-                                            .products[index].rating));
+                                    cartController.addToCart(items);
                                     print(
-                                        "Cart Items >> ${cartController.cartItems.length}");
+                                        "Cart Items >> ${cartController.cart.length}");
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(
