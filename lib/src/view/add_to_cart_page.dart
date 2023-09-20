@@ -50,7 +50,7 @@ class AddToCartPage extends StatelessWidget {
                           separatorBuilder: (context, index) {
                             return const SizedBox(height: 10);
                           },
-                          itemCount: productController.productList.length,
+                          itemCount: productController.products.length,
                           itemBuilder: (context, index) {
                             if (index < cartController.cartItems.length) {
                               final item = cartController.cartItems[index];

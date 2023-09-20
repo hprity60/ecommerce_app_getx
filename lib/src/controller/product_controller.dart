@@ -6,7 +6,7 @@ import 'package:ecommerce_app/src/repositories/get_product_repository.dart';
 
 class ProductController extends GetxController {
   var isLoading = true.obs;
-  var productList = <Product>[].obs;
+  var products = List<Product>.empty().obs;
 
   @override
   Future<void> onInit() async {
@@ -18,10 +18,7 @@ class ProductController extends GetxController {
   Future<List<Product>> getAllProduct() async {
     try {
       isLoading(true);
-      var products = await GetProductRepository.getAllProducts();
-      if (products.isNotEmpty) {
-        productList.value = products;
-      }
+      products.value = await GetProductRepository.getAllProducts();
       return products;
     } catch (e) {
       throw Exception();
